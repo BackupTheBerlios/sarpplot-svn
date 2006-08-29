@@ -32,9 +32,9 @@ nfs-rpc    (%calls)
 
 
 syntax is Simple :
-./sarpplot <interval> <sample number>"
+./sarpplot <interval> <sample number>
 
-author ;
+author
 Armin ranjbar <zoup@zoup.org>
-homepage ;
+homepage 
 sarplot.berlios.de
