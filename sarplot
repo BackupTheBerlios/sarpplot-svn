@@ -12,7 +12,7 @@ exit 1
 fi
 
 
-if [ ! -e /usr/bin/sar ];then
+if [ ! -e /usr/bin/atsar ];then
 echo "atsar Required"
 exit 1
 fi
