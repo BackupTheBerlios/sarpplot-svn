@@ -1,5 +1,5 @@
 SarPplot 
-System Statics Ploter 
+System Statistics Ploter 
 
 its simple application which takes output of atsar application and put it 
 into Gnuplot config files , kind of useful on server boxes for performance
@@ -39,7 +39,8 @@ Example :
 takes 10 sample each second .
 
 
-author
+Author :
 Armin ranjbar <zoup@zoup.org>
-homepage 
+
+Homepage :
 sarplot.berlios.de
