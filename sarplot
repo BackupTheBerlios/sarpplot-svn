@@ -23,6 +23,7 @@ exit 1
 fi
 
 
+
 echo "Starting `date`"
 atsar -Su $1 $2 > data/cpu.data &
 atsar -SP $1 $2 > data/proc.data &

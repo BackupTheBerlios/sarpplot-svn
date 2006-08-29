@@ -34,6 +34,11 @@ nfs-rpc    (%calls)
 syntax is Simple :
 ./sarpplot <interval> <sample number>
 
+Example :
+./sarpplot 1 10
+takes 10 sample each second .
+
+
 author
 Armin ranjbar <zoup@zoup.org>
 homepage 
