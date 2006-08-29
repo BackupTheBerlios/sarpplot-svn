@@ -19,7 +19,7 @@ exit 1
 fi
 
 if [ ! -e /usr/bin/gnuplot ];then
-echo "atsar Required"
+echo "gnuplot Required"
 exit 1
 fi
 
