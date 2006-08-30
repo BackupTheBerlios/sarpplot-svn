@@ -105,7 +105,12 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
-	    print $element "plot \"$element2\" using 1:2 w linespoints title \"User\",\"$element2\" using 1:3 w linespoints title \"Nice\",\"$element2\" using 1:4 w linespoints title \"System\",\"$element2\" using 1:5 w linespoints title \"IRQ\",\"$element2\" using 1:6 w linespoints title \"SoftIRQ\",\"$element2\" using 1:7 w linespoints title \"Wait\",\"$element2\" using 1:8 w linespoints title \"Idle\";\n";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"User\",\"$element2\" using 0:3 w linespoints title \"Nice\",\"$element2\" using 0:4 w linespoints title \"System\",\"$element2\" using 0:5 w linespoints title \"IRQ\",\"$element2\" using 0:6 w linespoints title \"SoftIRQ\",\"$element2\" using 0:7 w linespoints title \"Wait\",\"$element2\" using 0:8 w linespoints title \"Idle\";\n";
 	    close $element;
 
 	}
@@ -123,7 +128,12 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
-	    print $element "plot \"$element2\" using 1:3 w linespoints title \"read-requests issued\",\"$element2\" using 1:4 w linespoints title \"Kbytes tranferred\",\"$element2\" using 1:5 w linespoints title \"write-requests\",\"$element2\" using 1:6 w linespoints title \"Kbytes tranferred write\",\"$element2\" using 1:7 w linespoints title \"read/write requests issued\"";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+	    print $element "plot \"$element2\" using 0:3 w linespoints title \"read-requests issued\",\"$element2\" using 0:4 w linespoints title \"Kbytes tranferred\",\"$element2\" using 0:5 w linespoints title \"write-requests\",\"$element2\" using 0:6 w linespoints title \"Kbytes tranferred write\",\"$element2\" using 0:7 w linespoints title \"read/write requests issued\"";
 
 
 	    close $element;
@@ -144,7 +154,12 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
-	    print $element "plot \"$element2\" using 1:3 w linespoints title \"read-requests issued\",\"$element2\" using 1:4 w linespoints title \"Kbytes tranferred\",\"$element2\" using 1:5 w linespoints title \"write-requests\",\"$element2\" using 1:6 w linespoints title \"Kbytes tranferred write\"";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+	    print $element "plot \"$element2\" using 0:3 w linespoints title \"read-requests issued\",\"$element2\" using 0:4 w linespoints title \"Kbytes tranferred\",\"$element2\" using 0:5 w linespoints title \"write-requests\",\"$element2\" using 0:6 w linespoints title \"Kbytes tranferred write\"";
 
 
 	    close $element;
@@ -165,7 +180,12 @@ sub generate {
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
 
-	    print $element "plot \"$element2\" using 1:2 w linespoints title \"ICMP messages (any type) received\",\"$element2\" using 1:3 w linespoints title \"ICMP messages (any type) transmitted\",\"$element2\" using 1:4 w linespoints title \"ICMP Echo (request) messages received\",\"$element2\" using 1:5 w linespoints title \"ICMP Echo-Reply messages received\",\"$element2\" using 1:6 w linespoints title \"ICMP Echo (request) messages\",\"$element2\" using 1:7 w linespoints title \"Echo-Reply messages transmitted\"";
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"ICMP messages (any type) received\",\"$element2\" using 0:3 w linespoints title \"ICMP messages (any type) transmitted\",\"$element2\" using 0:4 w linespoints title \"ICMP Echo (request) messages received\",\"$element2\" using 0:5 w linespoints title \"ICMP Echo-Reply messages received\",\"$element2\" using 0:6 w linespoints title \"ICMP Echo (request) messages\",\"$element2\" using 0:7 w linespoints title \"Echo-Reply messages transmitted\"";
 
 
     }
@@ -182,7 +202,12 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
-	    print $element "plot \"$element2\" using 1:2 w linespoints title \"ICMP-specific errors\",\"$element2\" using 1:3 w linespoints title \"Source Quench messages received\",\"$element2\" using 1:4 w linespoints title \"Redirect messages received\",\"$element2\" using 1:5 w linespoints title \"Destination Unreachable messages received\",\"$element2\" using 1:6 w linespoints title \"Time Exceeded messages received\",\"$element2\" using 1:7 w linespoints title \"messages transmitted\",\"$element2\" using 1:8 w linespoints title \"Source Quench messages transmitted\",\"$element2\" using 1:9 w linespoints title \"Redirect messages transmitted\",\"$element2\" using 1:10 w linespoints title \"Destination Unreachable messages transmitted\",\"$element2\" using 1:7 w linespoints title \"Time Exceeded messages transmitted\"";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"ICMP-specific errors\",\"$element2\" using 0:3 w linespoints title \"Source Quench messages received\",\"$element2\" using 0:4 w linespoints title \"Redirect messages received\",\"$element2\" using 0:5 w linespoints title \"Destination Unreachable messages received\",\"$element2\" using 0:6 w linespoints title \"Time Exceeded messages received\",\"$element2\" using 0:7 w linespoints title \"messages transmitted\",\"$element2\" using 0:8 w linespoints title \"Source Quench messages transmitted\",\"$element2\" using 0:9 w linespoints title \"Redirect messages transmitted\",\"$element2\" using 0:10 w linespoints title \"Destination Unreachable messages transmitted\",\"$element2\" using 0:7 w linespoints title \"Time Exceeded messages transmitted\"";
 
 
 
@@ -204,7 +229,12 @@ sub generate {
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
 
-	    print $element "plot \"$element2\" using 1:2 w linespoints title \"iq\",\"$element2\" using 1:3 w linespoints title \"iq\",\"$element2\" using 1:4 w linespoints title \"iq\",\"$element2\" using 1:5 w linespoints title \"iq\",\"$element2\" using 1:6 w linespoints title \"iq\",\"$element2\" using 1:7 w linespoints title \"iq\",\"$element2\" using 1:7 w linespoints title \"iq\",\"$element2\" using 1:7 w linespoints title \"iq\",\"$element2\" using 1:7 w linespoints title \"iq\",\"$element2\" using 1:7 w linespoints title \"iq\",\"$element2\" using 1:7 w linespoints title \"iq\";";
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"iq\",\"$element2\" using 0:3 w linespoints title \"iq\",\"$element2\" using 0:4 w linespoints title \"iq\",\"$element2\" using 0:5 w linespoints title \"iq\",\"$element2\" using 0:6 w linespoints title \"iq\",\"$element2\" using 0:7 w linespoints title \"iq\",\"$element2\" using 0:7 w linespoints title \"iq\",\"$element2\" using 0:7 w linespoints title \"iq\",\"$element2\" using 0:7 w linespoints title \"iq\",\"$element2\" using 0:7 w linespoints title \"iq\",\"$element2\" using 0:7 w linespoints title \"iq\";";
 
 
     }
@@ -223,7 +253,12 @@ sub generate {
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
 
-	    print $element "plot \"$element2\" using 1:2 w linespoints title \"ipInDiscards\",\"$element2\" using 1:3 w linespoints title \"ipInHdrErrors\",\"$element2\" using 1:4 w linespoints title \"ipInAddrErrors\",\"$element2\" using 1:5 w linespoints title \"ipInUnknownProtos\",\"$element2\" using 1:6 w linespoints title \"ipReasmTimeout\",\"$element2\" using 1:7 w linespoints title \"ipReasmFails\",\"$element2\" using 1:8 w linespoints title \"ipOutDiscards\",\"$element2\" using 1:9 w linespoints title \"ipOutNoRoutes\";";
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"ipInDiscards\",\"$element2\" using 0:3 w linespoints title \"ipInHdrErrors\",\"$element2\" using 0:4 w linespoints title \"ipInAddrErrors\",\"$element2\" using 0:5 w linespoints title \"ipInUnknownProtos\",\"$element2\" using 0:6 w linespoints title \"ipReasmTimeout\",\"$element2\" using 0:7 w linespoints title \"ipReasmFails\",\"$element2\" using 0:8 w linespoints title \"ipOutDiscards\",\"$element2\" using 0:9 w linespoints title \"ipOutNoRoutes\";";
 
 
     }
@@ -242,7 +277,12 @@ sub generate {
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
 
-	    print $element "plot \"$element2\" using 1:2 w linespoints title \"Input datagrams\",\"$element2\" using 1:3 w linespoints title \"Outpout datagrams\",\"$element2\" using 1:4 w linespoints title \"Input Succesfull datagrams\",\"$element2\" using 1:5 w linespoints title \"Forwarded Datagrams\",\"$element2\" using 1:6 w linespoints title \"datagrams succesfully reassembled\",\"$element2\" using 1:7 w linespoints title \"Datagrams generated per second\";";
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"Input datagrams\",\"$element2\" using 0:3 w linespoints title \"Outpout datagrams\",\"$element2\" using 0:4 w linespoints title \"Input Succesfull datagrams\",\"$element2\" using 0:5 w linespoints title \"Forwarded Datagrams\",\"$element2\" using 0:6 w linespoints title \"datagrams succesfully reassembled\",\"$element2\" using 0:7 w linespoints title \"Datagrams generated per second\";";
 
 
 
@@ -262,7 +302,13 @@ sub generate {
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
 
-	    print $element "plot \"$element2\" using 1:2 w linespoints title \"Super Bz\",\"$element2\" using 1:3 w linespoints title \"Inode\",\"$element2\" using 1:4 w linespoints title \"File Sz\",\"$element2\" using 1:5 w linespoints title \"Quota Sz\",\"$element2\" using 1:6 w linespoints title \"flock sz\";";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"Super Bz\",\"$element2\" using 0:3 w linespoints title \"Inode\",\"$element2\" using 0:4 w linespoints title \"File Sz\",\"$element2\" using 0:5 w linespoints title \"Quota Sz\",\"$element2\" using 0:6 w linespoints title \"flock sz\";";
 
 
     }
@@ -280,7 +326,13 @@ sub generate {
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
 
-	    print $element "plot \"$element2\" using 1:2 w linespoints title \"$element2 in\",\"$element2\" using 1:3 w linespoints title \"$element2 Out \",\"$element2\" using 1:4 w linespoints title \"Swap in\",\"$element2\" using 1:5 w linespoints title \"Swap out\",\"$element2\" using 1:6 w linespoints title \"Fork\";";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"$element2 in\",\"$element2\" using 0:3 w linespoints title \"$element2 Out \",\"$element2\" using 0:4 w linespoints title \"Swap in\",\"$element2\" using 0:5 w linespoints title \"Swap out\",\"$element2\" using 0:6 w linespoints title \"Fork\";";
 
     }
 	if ($element=~/memswa/) {
@@ -298,7 +350,13 @@ sub generate {
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
 
-	    print $element "plot \"$element2\" using 1:2 w linespoints title \"$element2ory Total\",\"$element2\" using 1:3 w linespoints title \"$element2ory Free \",\"$element2\" using 1:4 w linespoints title \"Buffers\",\"$element2\" using 1:5 w linespoints title \"Cached\",\"$element2\" using 1:6 w linespoints title \"Slambeb\",\"$element2\" using 1:7 w linespoints title \"Swap Total\",\"$element2\" using 1:8 w linespoints title \"Swap Free\";";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"$element2ory Total\",\"$element2\" using 0:3 w linespoints title \"$element2ory Free \",\"$element2\" using 0:4 w linespoints title \"Buffers\",\"$element2\" using 0:5 w linespoints title \"Cached\",\"$element2\" using 0:6 w linespoints title \"Slambeb\",\"$element2\" using 0:7 w linespoints title \"Swap Total\",\"$element2\" using 0:8 w linespoints title \"Swap Free\";";
 
 
 
@@ -318,7 +376,13 @@ sub generate {
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
 
-	    print $element "plot \"$element2\" using 1:2 w linespoints title \"Input Errors\",\"$element2\" using 1:3 w linespoints title \"Output Errors\",\"$element2\" using 1:4 w linespoints title \"collisions\",\"$element2\" using 1:5 w linespoints title \"Input Drops\",\"$element2\" using 1:6 w linespoints title \"Frame alignment-errors\",\"$element2\" using 1:7 w linespoints title \"Carrier Drop\";";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"Input Errors\",\"$element2\" using 0:3 w linespoints title \"Output Errors\",\"$element2\" using 0:4 w linespoints title \"collisions\",\"$element2\" using 0:5 w linespoints title \"Input Drops\",\"$element2\" using 0:6 w linespoints title \"Frame alignment-errors\",\"$element2\" using 0:7 w linespoints title \"Carrier Drop\";";
 
 
     }
@@ -335,7 +399,14 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
-	    print $element "plot \"$element2\" using 1:2 w linespoints title \"Input Packets\",\"$element2\" using 1:3 w linespoints title \"Output Packets\",\"$element2\" using 1:4 w linespoints title \"Input Bytes\",\"$element2\" using 1:5 w linespoints title \"Comp Input Packets\",\"$element2\" using 1:6 w linespoints title \"Comp output Packets\",\"$element2\" using 1:7 w linespoints title \"Receive Multicast\";";
+
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"Input Packets\",\"$element2\" using 0:3 w linespoints title \"Output Packets\",\"$element2\" using 0:4 w linespoints title \"Input Bytes\",\"$element2\" using 0:5 w linespoints title \"Comp Input Packets\",\"$element2\" using 0:6 w linespoints title \"Comp output Packets\",\"$element2\" using 0:7 w linespoints title \"Receive Multicast\";";
 
 	}
 	if ($element=~/nfsrpc/) {
@@ -352,7 +423,13 @@ sub generate {
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
 
-	    print $element "plot \"$element2\" using 1:2 w linespoints title \"Lookup\",\"$element2\" using 1:3 w linespoints title \"Read Link\",\"$element2\" using 1:4 w linespoints title \"Read\",\"$element2\" using 1:5 w linespoints title \"Write Cache\",\"$element2\" using 1:6 w linespoints title \"Write\",\"$element2\" using 1:7 w linespoints title \"Create\",\"$element2\" using 1:8 w linespoints title \"Remove\",\"$element2\" using 1:9 w linespoints title \"Rename\",\"$element2\" using 1:10 w linespoints title \"Link\",\"$element2\" using 1:11 w linespoints title \"Symbolic Link\",\"$element2\" using 1:12 w linespoints title \"Mkdir\",\"$element2\" using 1:13 w linespoints title \"Rmdir\",\"$element2\" using 1:14 w linespoints title \"Read dir\",\"$element2\" using 1:15 w linespoints title \"Statfs\";";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"Lookup\",\"$element2\" using 0:3 w linespoints title \"Read Link\",\"$element2\" using 0:4 w linespoints title \"Read\",\"$element2\" using 0:5 w linespoints title \"Write Cache\",\"$element2\" using 0:6 w linespoints title \"Write\",\"$element2\" using 0:7 w linespoints title \"Create\",\"$element2\" using 0:8 w linespoints title \"Remove\",\"$element2\" using 0:9 w linespoints title \"Rename\",\"$element2\" using 0:10 w linespoints title \"Link\",\"$element2\" using 0:11 w linespoints title \"Symbolic Link\",\"$element2\" using 0:12 w linespoints title \"Mkdir\",\"$element2\" using 0:13 w linespoints title \"Rmdir\",\"$element2\" using 0:14 w linespoints title \"Read dir\",\"$element2\" using 0:15 w linespoints title \"Statfs\";";
 
 
     }
@@ -370,8 +447,14 @@ sub generate {
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
 
+	    
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
 
-	    print $element "plot \"$element2\" using 1:2 w linespoints title \"RPC-requests handled by this NFS-server\",\"$element2\" using 1:3 w linespoints title \"RPC-requests issued by this NFS-client\",\"$element2\" using 1:4 w linespoints title \"requests handled via UDP by this NFS-server\",\"$element2\" using 1:5 w linespoints title \"requests handled via TCP by this NFS-server\",\"$element2\" using 1:6 w linespoints title \"TCP-connections established by this NFS-server\",\"$element2\" using 1:7 w linespoints title \"requests issued via UDP by this NFS-client\",\"$element2\" using 1:8 w linespoints title \"requests issued via TCP by this NFS-client\", \"$element2\" using 1:9 w linespoints title \"TCP-connections established by this NFS-client\";";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"RPC-requests handled by this NFS-server\",\"$element2\" using 0:3 w linespoints title \"RPC-requests issued by this NFS-client\",\"$element2\" using 0:4 w linespoints title \"requests handled via UDP by this NFS-server\",\"$element2\" using 0:5 w linespoints title \"requests handled via TCP by this NFS-server\",\"$element2\" using 0:6 w linespoints title \"TCP-connections established by this NFS-server\",\"$element2\" using 0:7 w linespoints title \"requests issued via UDP by this NFS-client\",\"$element2\" using 0:8 w linespoints title \"requests issued via TCP by this NFS-client\", \"$element2\" using 0:9 w linespoints title \"TCP-connections established by this NFS-client\";";
 
 
     }
@@ -388,7 +471,13 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
-	    print $element "plot \"$element2\" using 1:2 w linespoints title \"bad fmt\",\"$element2\" using 1:3 w linespoints title \"bad auth\",\"$element2\" using 1:4 w linespoints title \"unknown\",\"$element2\" using 1:5 w linespoints title \"cl retrans\",\"$element2\" using 1:6 w linespoints title \"clauthrefresh/s\";";
+
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"bad fmt\",\"$element2\" using 0:3 w linespoints title \"bad auth\",\"$element2\" using 0:4 w linespoints title \"unknown\",\"$element2\" using 0:5 w linespoints title \"cl retrans\",\"$element2\" using 0:6 w linespoints title \"clauthrefresh/s\";";
 
 
 
@@ -407,7 +496,13 @@ sub generate {
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
 
-	    print $element "plot \"$element2\" using 1:2 w linespoints title \"rchit\",\"$element2\" using 1:3 w linespoints title \"rcmiss\",\"$element2\" using 1:4 w linespoints title \"hit\",\"$element2\" using 1:5 w linespoints title \"fh stale\",\"$element2\" using 1:6 w linespoints title \"iord\",\"$element2\" using 1:6 w linespoints title \"iowd\",\"$element2\" using 1:6 w linespoints title \"thrnow\",\"$element2\" using 1:6 w linespoints title \"thlast\";";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"rchit\",\"$element2\" using 0:3 w linespoints title \"rcmiss\",\"$element2\" using 0:4 w linespoints title \"hit\",\"$element2\" using 0:5 w linespoints title \"fh stale\",\"$element2\" using 0:6 w linespoints title \"iord\",\"$element2\" using 0:6 w linespoints title \"iowd\",\"$element2\" using 0:6 w linespoints title \"thrnow\",\"$element2\" using 0:6 w linespoints title \"thlast\";";
 
     }
 	if ($element=~/proc/) {
@@ -424,7 +519,13 @@ sub generate {
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
 
-	    print $element "plot \"$element2\" using 1:5 w lines title \"1 Minute System Load\",\"$element2\" using 1:6 w lines title \"5 Minute System Load\",\"$element2\" using 1:7 w lines title \"15 Minute System Load\";";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:5 w lines title \"1 Minute System Load\",\"$element2\" using 0:6 w lines title \"5 Minute System Load\",\"$element2\" using 0:7 w lines title \"15 Minute System Load\";";
 
     }
 	if ($element=~/tcpe/) {
@@ -440,7 +541,13 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
-	    print $element "plot \"$element2\" using 1:2 w linespoints title \"tcpInErrs\",\"$element2\" using 1:3 w linespoints title \"tcpRetransSegs\",\"$element2\" using 1:4 w linespoints title \"tcpAttemptFails\",\"$element2\" using 1:5 w linespoints title \"tcpEstabResets\",\"$element2\" using 1:6 w linespoints title \"tcpOutRsts\";";
+
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"tcpInErrs\",\"$element2\" using 0:3 w linespoints title \"tcpRetransSegs\",\"$element2\" using 0:4 w linespoints title \"tcpAttemptFails\",\"$element2\" using 0:5 w linespoints title \"tcpEstabResets\",\"$element2\" using 0:6 w linespoints title \"tcpOutRsts\";";
 
 
 
@@ -459,7 +566,13 @@ sub generate {
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
 
-	    print $element "plot \"$element2\" using 1:2 w linespoints title \"tcpInSegs\",\"$element2\" using 1:3 w linespoints title \"tcpOutSegs\",\"$element2\" using 1:4 w linespoints title \"tcpActiveOpens\",\"$element2\" using 1:5 w linespoints title \"tcpPassiveOpens\",\"$element2\" using 1:6 w linespoints title \"tcpCurrEstab\",\"$element2\" using 1:7 w linespoints title \"snapshot\",\"$element2\" using 1:8 w linespoints title \"sockmax\";";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"tcpInSegs\",\"$element2\" using 0:3 w linespoints title \"tcpOutSegs\",\"$element2\" using 0:4 w linespoints title \"tcpActiveOpens\",\"$element2\" using 0:5 w linespoints title \"tcpPassiveOpens\",\"$element2\" using 0:6 w linespoints title \"tcpCurrEstab\",\"$element2\" using 0:7 w linespoints title \"snapshot\",\"$element2\" using 0:8 w linespoints title \"sockmax\";";
 
 
     }
@@ -478,7 +591,13 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
-	    print $element "plot \"$element2\" using 1:3 w linespoints title \"xmit\",\"$element2\" using 1:4 w linespoints title \"Receive\",\"$element2\" using 1:5 w linespoints title \"Frer\",\"$element2\" using 1:6 w linespoints title \"Parer\",\"$element2\" using 1:7 w linespoints title \"OverRun\",\"$element2\" using 1:8 w linespoints title \"Brk\";";
+
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+	    print $element "plot \"$element2\" using 0:3 w linespoints title \"xmit\",\"$element2\" using 0:4 w linespoints title \"Receive\",\"$element2\" using 0:5 w linespoints title \"Frer\",\"$element2\" using 0:6 w linespoints title \"Parer\",\"$element2\" using 0:7 w linespoints title \"OverRun\",\"$element2\" using 0:8 w linespoints title \"Brk\";";
 
 
 
@@ -496,7 +615,12 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
-	    print $element "plot \"$element2\" using 1:2 w linespoints title \"udpInDatagrams\",\"$element2\" using 1:3 w linespoints title \"udpOutDatagrams\",\"$element2\" using 1:4 w linespoints title \"udpInErrors\",\"$element2\" using 1:5 w linespoints title \"udpNoPorts\",\"$element2\" using 1:6 w linespoints title \"snapshot\",\"$element2\" using 1:6 w linespoints title \"sockmax\";";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"udpInDatagrams\",\"$element2\" using 0:3 w linespoints title \"udpOutDatagrams\",\"$element2\" using 0:4 w linespoints title \"udpInErrors\",\"$element2\" using 0:5 w linespoints title \"udpNoPorts\",\"$element2\" using 0:6 w linespoints title \"snapshot\",\"$element2\" using 0:6 w linespoints title \"sockmax\";";
 
     }
 
