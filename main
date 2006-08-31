@@ -105,6 +105,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
 
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
 	    print $element "set xdata time;\n";
@@ -128,6 +129,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
 
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
 	    print $element "set xdata time;\n";
@@ -154,6 +156,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
 
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
 	    print $element "set xdata time;\n";
@@ -179,6 +182,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
 
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
 	    print $element "set xdata time;\n";
@@ -202,6 +206,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
 
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
 	    print $element "set xdata time;\n";
@@ -228,6 +233,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
 
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
 	    print $element "set xdata time;\n";
@@ -252,6 +258,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
 
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
 	    print $element "set xdata time;\n";
@@ -276,6 +283,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
 
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
 	    print $element "set xdata time;\n";
@@ -301,6 +309,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
 
 
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
@@ -325,6 +334,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
 
 
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
@@ -349,6 +359,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
 
 
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
@@ -375,6 +386,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
 
 
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
@@ -399,6 +411,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
 
 
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
@@ -422,6 +435,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
 
 
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
@@ -446,6 +460,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
 
 	    
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
@@ -471,6 +486,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
 
 
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
@@ -495,6 +511,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
 
 
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
@@ -518,7 +535,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
-
+	    print $element "set grid;\n";
 
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
 	    print $element "set xdata time;\n";
@@ -541,6 +558,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
 
 
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
@@ -565,6 +583,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
 
 
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
@@ -591,6 +610,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
 
 
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
@@ -615,6 +635,7 @@ sub generate {
 	    print $element "set ylabel \"$title\";\n";
 	    print $element "set label \"$title\";\n";
 	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
 
 	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
 	    print $element "set xdata time;\n";
