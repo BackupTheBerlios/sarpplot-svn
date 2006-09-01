@@ -1,0 +1,19 @@
+#!/usr/bin/perl
+
+#
+#
+# Calculates number of running http childs 
+# Change binary name if you need 
+#
+#
+
+
+
+until ($ARGV[0] == $time) {
+
+$httpd=`ps -A | grep -i httpd | wc -l`;
+print $httpd;
+$time++;
+sleep 1;
+
+}

@@ -1,0 +1,24 @@
+#!/usr/bin/perl
+
+#
+#
+# Calculates number of http request 
+# Change path of Access log if you know what you are doing 
+#
+#
+
+
+until ($ARGV[0] == $time) {
+
+    $lines=`wc -l /usr/local/apache/logs/access_log`;
+    $lines =~ s/\/usr\/local\/apache\/logs\/access_log//;
+
+    $newhits=$lines - $linesold;
+    $linesold=$lines; 
+
+    next if $newhits == $lines;
+    print $newhits;
+
+    sleep 1;
+    $time++;
+}
