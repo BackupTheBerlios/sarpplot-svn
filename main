@@ -245,7 +245,6 @@ sub generate {
 	    print $element "set xdata time;\n";
 	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
 
-
 	    print $element "plot \"$element2\" using 0:2 w linespoints title \"iq\",\"$element2\" using 0:3 w linespoints title \"iq\",\"$element2\" using 0:4 w linespoints title \"iq\",\"$element2\" using 0:5 w linespoints title \"iq\",\"$element2\" using 0:6 w linespoints title \"iq\",\"$element2\" using 0:7 w linespoints title \"iq\",\"$element2\" using 0:7 w linespoints title \"iq\",\"$element2\" using 0:7 w linespoints title \"iq\",\"$element2\" using 0:7 w linespoints title \"iq\",\"$element2\" using 0:7 w linespoints title \"iq\",\"$element2\" using 0:7 w linespoints title \"iq\";";
 
 
@@ -822,6 +821,7 @@ next if $line =~ /cpu/;
 $line =~ s/^\s//;
 $line =~ s/://g;
 $line =~ s/%//g;
+$line =~ s/all//g;
 $line =~ s/\(\d-\d\)//g;
 next if $line =~ /^\d\d\d\d\d\d\s+$/;
 print INTERR $line;
