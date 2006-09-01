@@ -8,7 +8,7 @@
 #
 
 
-until ($ARGV[0] == $time) {
+until ($ARGV[1] == $time) {
 
     $lines=`wc -l /usr/local/apache/logs/access_log`;
     $lines =~ s/\/usr\/local\/apache\/logs\/access_log//;
@@ -19,6 +19,6 @@ until ($ARGV[0] == $time) {
     next if $newhits == $lines;
     print "$newhits\n";
 
-    sleep 1;
+    sleep $ARGV[0];
     $time++;
 }

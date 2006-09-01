@@ -47,8 +47,8 @@ atsar -SN $1 $2 > data/nfsg.data &
 atsar -SE $1 $2 > data/nfserr.data &
 atsar -SV $1 $2 > data/nfsserv.data &
 atsar -SR $1 $2 > data/nfsrpc.data &
-bin/httpdpid $2 > run/httpdpid.run & 
-bin/httprequest $2 > run/httpdrequest.run & 
+bin/httpdpid $1 $2 > run/httpdpid.run & 
+bin/httprequest $1 $2 > run/httpdrequest.run & 
 
 sleep $2;
 echo "Gathering is done.";

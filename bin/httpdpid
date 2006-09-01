@@ -9,12 +9,12 @@
 
 
 
-until ($ARGV[0] == $time) {
+until ($ARGV[1] == $time) {
 
 $httpd=`ps -A | grep -i httpd | wc -l`;
 $httpd--;
 print "$httpd\n";
 $time++;
-sleep 1;
+sleep $ARGV[0];
 
 }
