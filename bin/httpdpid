@@ -12,7 +12,8 @@
 until ($ARGV[0] == $time) {
 
 $httpd=`ps -A | grep -i httpd | wc -l`;
-print "$httpd";
+$httpd--;
+print "$httpd\n";
 $time++;
 sleep 1;
 

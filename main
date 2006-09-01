@@ -19,7 +19,6 @@
 
 
 
-system "rm run/* 2> /dev/null";
 system "rm conf/* 2> /dev/null";
 system "rm images/* 2> /dev/null";
 
@@ -46,6 +45,7 @@ tcpe();
 tcpg();
 tty();
 udp();
+
 print "Generating config...\n";
 generate();
 print "Generating Images ...\n";
@@ -642,6 +642,53 @@ sub generate {
 	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
 
 	    print $element "plot \"$element2\" using 0:2 w linespoints title \"udpInDatagrams\",\"$element2\" using 0:3 w linespoints title \"udpOutDatagrams\",\"$element2\" using 0:4 w linespoints title \"udpInErrors\",\"$element2\" using 0:5 w linespoints title \"udpNoPorts\",\"$element2\" using 0:6 w linespoints title \"snapshot\",\"$element2\" using 0:6 w linespoints title \"sockmax\";";
+
+    }
+
+	if ($element=~/httpdpid/) {
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+	    print $element "plot \"$element2\" using 0:1 w linespoints title \"Number of httpds\";";
+
+    }
+
+
+	if ($element=~/httpdrequest/) {
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set grid;\n";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+	    print $element "plot \"$element2\" using 0:1 w linespoints title \"Number of http requests\";";
 
     }
 
