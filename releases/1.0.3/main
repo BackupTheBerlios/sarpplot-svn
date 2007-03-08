@@ -1,0 +1,1137 @@
+#!/usr/bin/perl
+#
+# SarPplot , System Statics Ploter 
+# Copyright (C) 2006 Armin Ranjbar <zoup@zoup.org>
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+
+
+system "rm conf/* 2> /dev/null";
+system "rm images/* 2> /dev/null";
+
+print "Generating run files...\n";
+cpu();
+disk();
+diskpart();
+icmpg();
+icmppt();
+interr();
+ipe ();
+ipg ();
+keres ();
+mempage();
+memswa();
+nete();
+netg();
+nfsrpc();
+nfsg();
+nfserr();
+nfsserv();
+proc();
+tcpe();
+tcpg();
+tty();
+udp();
+
+print "Generating config...\n";
+generate();
+print "Generating Images ...\n";
+plot();
+print "Generating Index...\n";
+indexh();
+print "Done .\n";
+
+
+sub indexh {
+
+    opendir IM,"images";
+    @ar=(readdir IM);
+
+    open HTML,">index.html";
+print HTML ("\<div align=\"center\"\>");
+    foreach $config (@ar) {
+
+	if ($config =~ /png/) {
+print HTML ("\<img src=\images\/$config>\n<hr>\n");
+
+}}
+print HTML ("\<\/div\>");
+}
+
+sub plot {
+
+    opendir CH,"conf";
+    @ar=(readdir CH);
+
+    foreach $config (@ar) {
+
+	if ($config =~ /conf/) {
+	    system "gnuplot conf/$config 2> /dev/null";
+    }
+    }
+    system "mv *.png images 2> /dev/null";
+}
+
+sub generate {
+    opendir DH,"run";
+    @ar=(readdir DH);
+
+    while (@ar) {
+	$element=shift @ar;
+
+
+	if ($element=~/cpu/) {
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"User\",\"$element2\" using 0:3 w linespoints title \"Nice\",\"$element2\" using 0:4 w linespoints title \"System\",\"$element2\" using 0:5 w linespoints title \"IRQ\",\"$element2\" using 0:6 w linespoints title \"SoftIRQ\",\"$element2\" using 0:7 w linespoints title \"Wait\",\"$element2\" using 0:8 w linespoints title \"Idle\";\n";
+	    close $element;
+
+	}
+
+
+	if ($element=~/disk_/) {
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+	    print $element "plot \"$element2\" using 0:3 w linespoints title \"read-requests issued\",\"$element2\" using 0:4 w linespoints title \"Kbytes tranferred\",\"$element2\" using 0:5 w linespoints title \"write-requests\",\"$element2\" using 0:6 w linespoints title \"Kbytes tranferred write\",\"$element2\" using 0:7 w linespoints title \"read/write requests issued\"";
+
+
+	    close $element;
+
+
+
+    }
+	if ($element=~/diskpart/) {
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+	    print $element "plot \"$element2\" using 0:3 w linespoints title \"read-requests issued\",\"$element2\" using 0:4 w linespoints title \"Kbytes tranferred\",\"$element2\" using 0:5 w linespoints title \"write-requests\",\"$element2\" using 0:6 w linespoints title \"Kbytes tranferred write\"";
+
+
+	    close $element;
+
+
+    }
+	if ($element=~/icmpg/) {
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"ICMP messages (any type) received\",\"$element2\" using 0:3 w linespoints title \"ICMP messages (any type) transmitted\",\"$element2\" using 0:4 w linespoints title \"ICMP Echo (request) messages received\",\"$element2\" using 0:5 w linespoints title \"ICMP Echo-Reply messages received\",\"$element2\" using 0:6 w linespoints title \"ICMP Echo (request) messages\",\"$element2\" using 0:7 w linespoints title \"Echo-Reply messages transmitted\"";
+
+
+    }
+	if ($element=~/icmppt/) {
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"ICMP-specific errors\",\"$element2\" using 0:3 w linespoints title \"Source Quench messages received\",\"$element2\" using 0:4 w linespoints title \"Redirect messages received\",\"$element2\" using 0:5 w linespoints title \"Destination Unreachable messages received\",\"$element2\" using 0:6 w linespoints title \"Time Exceeded messages received\",\"$element2\" using 0:7 w linespoints title \"messages transmitted\",\"$element2\" using 0:8 w linespoints title \"Source Quench messages transmitted\",\"$element2\" using 0:9 w linespoints title \"Redirect messages transmitted\",\"$element2\" using 0:10 w linespoints title \"Destination Unreachable messages transmitted\",\"$element2\" using 0:7 w linespoints title \"Time Exceeded messages transmitted\"";
+
+
+
+
+	;
+
+    }
+	if ($element=~/interr/) {
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"iq\",\"$element2\" using 0:3 w linespoints title \"iq\",\"$element2\" using 0:4 w linespoints title \"iq\",\"$element2\" using 0:5 w linespoints title \"iq\",\"$element2\" using 0:6 w linespoints title \"iq\",\"$element2\" using 0:7 w linespoints title \"iq\",\"$element2\" using 0:7 w linespoints title \"iq\",\"$element2\" using 0:7 w linespoints title \"iq\",\"$element2\" using 0:7 w linespoints title \"iq\",\"$element2\" using 0:7 w linespoints title \"iq\",\"$element2\" using 0:7 w linespoints title \"iq\";";
+
+
+    }
+	if ($element=~/ipe/) {
+
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"ipInDiscards\",\"$element2\" using 0:3 w linespoints title \"ipInHdrErrors\",\"$element2\" using 0:4 w linespoints title \"ipInAddrErrors\",\"$element2\" using 0:5 w linespoints title \"ipInUnknownProtos\",\"$element2\" using 0:6 w linespoints title \"ipReasmTimeout\",\"$element2\" using 0:7 w linespoints title \"ipReasmFails\",\"$element2\" using 0:8 w linespoints title \"ipOutDiscards\",\"$element2\" using 0:9 w linespoints title \"ipOutNoRoutes\";";
+
+
+    }
+	if ($element=~/ipg/) {
+
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"Input datagrams\",\"$element2\" using 0:3 w linespoints title \"Outpout datagrams\",\"$element2\" using 0:4 w linespoints title \"Input Succesfull datagrams\",\"$element2\" using 0:5 w linespoints title \"Forwarded Datagrams\",\"$element2\" using 0:6 w linespoints title \"datagrams succesfully reassembled\",\"$element2\" using 0:7 w linespoints title \"Datagrams generated per second\";";
+
+
+
+    }
+	if ($element=~/keres/) {
+
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"Super Bz\",\"$element2\" using 0:3 w linespoints title \"Inode\",\"$element2\" using 0:4 w linespoints title \"File Sz\",\"$element2\" using 0:5 w linespoints title \"Quota Sz\",\"$element2\" using 0:6 w linespoints title \"flock sz\";";
+
+
+    }
+	if ($element=~/mempage/) {
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"$element2 in\",\"$element2\" using 0:3 w linespoints title \"$element2 Out \",\"$element2\" using 0:4 w linespoints title \"Swap in\",\"$element2\" using 0:5 w linespoints title \"Swap out\",\"$element2\" using 0:6 w linespoints title \"Fork\";";
+
+    }
+	if ($element=~/memswa/) {
+
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"$element2ory Total\",\"$element2\" using 0:3 w linespoints title \"$element2ory Free \",\"$element2\" using 0:4 w linespoints title \"Buffers\",\"$element2\" using 0:5 w linespoints title \"Cached\",\"$element2\" using 0:6 w linespoints title \"Slambeb\",\"$element2\" using 0:7 w linespoints title \"Swap Total\",\"$element2\" using 0:8 w linespoints title \"Swap Free\";";
+
+
+
+
+    }
+	if ($element=~/nete/) {
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"Input Errors\",\"$element2\" using 0:3 w linespoints title \"Output Errors\",\"$element2\" using 0:4 w linespoints title \"collisions\",\"$element2\" using 0:5 w linespoints title \"Input Drops\",\"$element2\" using 0:6 w linespoints title \"Frame alignment-errors\",\"$element2\" using 0:7 w linespoints title \"Carrier Drop\";";
+
+
+    }
+	if ($element=~/netg/) {
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"Input Packets\",\"$element2\" using 0:3 w linespoints title \"Output Packets\",\"$element2\" using 0:4 w linespoints title \"Input Bytes\",\"$element2\" using 0:5 w linespoints title \"Comp Input Packets\",\"$element2\" using 0:6 w linespoints title \"Comp output Packets\",\"$element2\" using 0:7 w linespoints title \"Receive Multicast\";";
+
+	}
+	if ($element=~/nfsrpc/) {
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"Lookup\",\"$element2\" using 0:3 w linespoints title \"Read Link\",\"$element2\" using 0:4 w linespoints title \"Read\",\"$element2\" using 0:5 w linespoints title \"Write Cache\",\"$element2\" using 0:6 w linespoints title \"Write\",\"$element2\" using 0:7 w linespoints title \"Create\",\"$element2\" using 0:8 w linespoints title \"Remove\",\"$element2\" using 0:9 w linespoints title \"Rename\",\"$element2\" using 0:10 w linespoints title \"Link\",\"$element2\" using 0:11 w linespoints title \"Symbolic Link\",\"$element2\" using 0:12 w linespoints title \"Mkdir\",\"$element2\" using 0:13 w linespoints title \"Rmdir\",\"$element2\" using 0:14 w linespoints title \"Read dir\",\"$element2\" using 0:15 w linespoints title \"Statfs\";";
+
+
+    }
+	if ($element=~/nfsg/) {
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+	    
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"RPC-requests handled by this NFS-server\",\"$element2\" using 0:3 w linespoints title \"RPC-requests issued by this NFS-client\",\"$element2\" using 0:4 w linespoints title \"requests handled via UDP by this NFS-server\",\"$element2\" using 0:5 w linespoints title \"requests handled via TCP by this NFS-server\",\"$element2\" using 0:6 w linespoints title \"TCP-connections established by this NFS-server\",\"$element2\" using 0:7 w linespoints title \"requests issued via UDP by this NFS-client\",\"$element2\" using 0:8 w linespoints title \"requests issued via TCP by this NFS-client\", \"$element2\" using 0:9 w linespoints title \"TCP-connections established by this NFS-client\";";
+
+
+    }
+	if ($element=~/nfserr/) {
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"bad fmt\",\"$element2\" using 0:3 w linespoints title \"bad auth\",\"$element2\" using 0:4 w linespoints title \"unknown\",\"$element2\" using 0:5 w linespoints title \"cl retrans\",\"$element2\" using 0:6 w linespoints title \"clauthrefresh/s\";";
+
+
+
+    }
+	if ($element=~/nfsserv/) {
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"rchit\",\"$element2\" using 0:3 w linespoints title \"rcmiss\",\"$element2\" using 0:4 w linespoints title \"hit\",\"$element2\" using 0:5 w linespoints title \"fh stale\",\"$element2\" using 0:6 w linespoints title \"iord\",\"$element2\" using 0:6 w linespoints title \"iowd\",\"$element2\" using 0:6 w linespoints title \"thrnow\",\"$element2\" using 0:6 w linespoints title \"thlast\";";
+
+    }
+	if ($element=~/proc/) {
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:5 w lines title \"1 Minute System Load\",\"$element2\" using 0:6 w lines title \"5 Minute System Load\",\"$element2\" using 0:7 w lines title \"15 Minute System Load\";";
+
+    }
+	if ($element=~/tcpe/) {
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"tcpInErrs\",\"$element2\" using 0:3 w linespoints title \"tcpRetransSegs\",\"$element2\" using 0:4 w linespoints title \"tcpAttemptFails\",\"$element2\" using 0:5 w linespoints title \"tcpEstabResets\",\"$element2\" using 0:6 w linespoints title \"tcpOutRsts\";";
+
+
+
+    }
+	if ($element=~/tcpg/) {
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"tcpInSegs\",\"$element2\" using 0:3 w linespoints title \"tcpOutSegs\",\"$element2\" using 0:4 w linespoints title \"tcpActiveOpens\",\"$element2\" using 0:5 w linespoints title \"tcpPassiveOpens\",\"$element2\" using 0:6 w linespoints title \"tcpCurrEstab\",\"$element2\" using 0:7 w linespoints title \"snapshot\",\"$element2\" using 0:8 w linespoints title \"sockmax\";";
+
+
+    }
+	if ($element=~/tty/) {
+
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element, ">$element";
+
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+	    print $element "plot \"$element2\" using 0:3 w linespoints title \"xmit\",\"$element2\" using 0:4 w linespoints title \"Receive\",\"$element2\" using 0:5 w linespoints title \"Frer\",\"$element2\" using 0:6 w linespoints title \"Parer\",\"$element2\" using 0:7 w linespoints title \"OverRun\",\"$element2\" using 0:8 w linespoints title \"Brk\";";
+
+
+
+    }
+	if ($element=~/udp/) {
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+	    print $element "plot \"$element2\" using 0:2 w linespoints title \"udpInDatagrams\",\"$element2\" using 0:3 w linespoints title \"udpOutDatagrams\",\"$element2\" using 0:4 w linespoints title \"udpInErrors\",\"$element2\" using 0:5 w linespoints title \"udpNoPorts\",\"$element2\" using 0:6 w linespoints title \"snapshot\",\"$element2\" using 0:6 w linespoints title \"sockmax\";";
+
+    }
+
+	if ($element=~/httpdpid/) {
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+	    print $element "plot \"$element2\" using 0:1 w linespoints title \"Number of httpds\";";
+
+    }
+
+
+	if ($element=~/httpdrequest/) {
+
+	    $title=$element;
+	    $element2=$element;
+	    $element2="run/".$element2;
+	    $element=$element.".conf";
+	    $title=~s/.run//;
+	    open $element,">$element";
+	    print $element "set terminal png size 1024,768;\n";
+	    print $element "set xlabel \"time\";\n";
+	    print $element "set ylabel \"$title\";\n";
+	    print $element "set label \"$title\";\n";
+	    print $element "set output \"$title.png\";\n";
+	    print $element "set key below;\n";
+	    print $element "set grid;\n";
+
+	    print $element "set timestamp \"generated on \%Y\-\%m\-\%d by \`whoami\`\"\n";
+	    print $element "set xdata time;\n";
+	    print $element "set timefmt \"\%H\:\%M\:\%S\";\n";
+
+	    print $element "plot \"$element2\" using 0:1 w linespoints title \"Number of http requests\";";
+
+    }
+
+
+    }
+	    system "mv *.conf conf/ 2>/dev/null";
+
+}
+
+# Cpu Sub
+sub cpu {
+open CPUT,"<data/cpu.data";
+my @cpu0=<CPUT>;
+while (@cpu0) {
+my $line=shift @cpu0;
+next if $line =~ /Linux/;
+next if $line =~ /cpu/;
+$line =~ s/all//g;
+
+$line =~ s/^\s//;
+$line =~ s/://g;
+
+chomp (my $target=substr ("$line",10,1));
+if ($target =~ /^./) {
+$target="cpu".$target.".run";
+$target=~s/\s+//;
+open $target ,">>$target";
+
+print $target $line;
+
+}}
+close $target;
+system "mv *.run run/ 2> /dev/null";
+}
+
+#Disk
+sub disk {
+open DISK,"<data/disk.data";
+my @disk0=<DISK>;
+while (@disk0) {
+my $line=shift @disk0;
+next if $line =~ /Linux/;
+next if $line =~ /device/;
+$line =~ s/^\s//;
+$line =~ s/://g;
+$line =~ s/%//g;
+$line =~ s/\(\d-\d\)//g;
+next if $line =~ /^\d\d\d\d\d\d\s+$/;
+chomp (my $target=substr ("$line",8,5));
+if ($target =~ /^\w/) {
+$target="hdisk_".$target.".run";
+$target=~s/\s+//;
+open $target ,">>$target";
+print $target "$line";
+}}
+close $target;
+system "mv *.run run/ 2> /dev/null";
+}
+#Disk Part
+sub diskpart {
+open DISKPART,"<data/diskpart.data";
+my @diskpart0=<DISKPART>;
+while (@diskpart0) {
+my $line=shift @diskpart0;
+next if $line =~ /Linux/;
+next if $line =~ /partition/;
+$line =~ s/^\s//;
+$line =~ s/://g;
+$line =~ s/%//g;
+$line =~ s/\(\d-\d\)//g;
+next if $line =~ /^\d\d\d\d\d\d\s+$/;
+chomp (my $target=substr ("$line",8,5));
+if ($target =~ /^\w/) {
+$target="hdiskpart_".$target.".run";
+$target=~s/\s+//;
+open $target ,">>$target";
+print $target "$line";
+}}
+close $target;
+system "mv *.run run/ 2> /dev/null";
+}
+#icmpg
+sub icmpg {
+open ICMPG,"<data/icmpg.data";
+open ICMP,">run/icmpg.run";
+my @icmpg=<ICMPG>;
+while (@icmpg) {
+my $line=shift @icmpg;
+next if $line =~ /Linux/;
+next if $line =~ /intot/;
+$line =~ s/^\s//;
+$line =~ s/://g;
+$line =~ s/%//g;
+$line =~ s/\(\d-\d\)//g;
+next if $line =~ /^\d\d\d\d\d\d\s+$/;
+print ICMP $line;
+}}
+#interrupts
+sub interr {
+open INTERRT,"<data/interr.data";
+open INTERR,">run/interr.run";
+my @INTERRT=<INTERRT>;
+while (@INTERRT) {
+my $line=shift @INTERRT;
+next if $line =~ /Linux/;
+next if $line =~ /cpu/;
+$line =~ s/^\s//;
+$line =~ s/://g;
+$line =~ s/%//g;
+$line =~ s/all//g;
+$line =~ s/\(\d-\d\)//g;
+next if $line =~ /^\d\d\d\d\d\d\s+$/;
+print INTERR $line;
+}}
+#ipe
+sub ipe {
+open IPET,"<data/ipe.data";
+open IPE,">run/ipe.run";
+my @IPET=<IPET>;
+while (@IPET) {
+my $line=shift @IPET;
+next if $line =~ /Linux/;
+next if $line =~ /unk/;
+$line =~ s/^\s//;
+$line =~ s/://g;
+$line =~ s/%//g;
+$line =~ s/\(\d-\d\)//g;
+next if $line =~ /^\d\d\d\d\d\d\s+$/;
+print IPE $line;
+}}
+#ipg
+sub ipg {
+open IPGT,"<data/ipg.data";
+open IPG,">run/ipg.run";
+my @IPGT=<IPGT>;
+while (@IPGT) {
+my $line=shift @IPGT;
+next if $line =~ /Linux/;
+next if $line =~ /inrec/;
+$line =~ s/^\s//;
+$line =~ s/://g;
+$line =~ s/%//g;
+$line =~ s/\(\d-\d\)//g;
+next if $line =~ /^\d\d\d\d\d\d\s+$/;
+print IPG $line;
+}}
+#keres
+sub keres {
+open KEREST,"<data/keres.data";
+open KERES,">run/keres.run";
+my @KEREST=<KEREST>;
+while (@KEREST) {
+my $line=shift @KEREST;
+next if $line =~ /Linux/;
+next if $line =~ /super/;
+$line =~ s/^\s//;
+$line =~ s/://g;
+$line =~ s/%//g;
+$line =~ s/F//g;
+$line =~ s/\///g;
+$line =~ s/\(\d-\d\)//g;
+next if $line =~ /^\d\d\d\d\d\d\s+$/;
+print KERES $line;
+}}
+#mempage
+sub mempage {
+open MEMPAGET,"<data/mempage.data";
+open MEMPAGE,">run/mempage.run";
+my @MEMPAGET=<MEMPAGET>;
+while (@MEMPAGET) {
+my $line=shift @MEMPAGET;
+next if $line =~ /Linux/;
+next if $line =~ /page/;
+$line =~ s/^\s//;
+$line =~ s/://g;
+$line =~ s/%//g;
+$line =~ s/F//g;
+$line =~ s/\(\d-\d\)//g;
+next if $line =~ /^\d\d\d\d\d\d\s+$/;
+print MEMPAGE $line;
+}}
+#memswap
+sub memswa {
+open MEMSWAT,"<data/memswa.data";
+open MEMSWA,">run/memswa.run";
+my @MEMSWAT=<MEMSWAT>;
+while (@MEMSWAT) {
+my $line=shift @MEMSWAT;
+next if $line =~ /Linux/;
+next if $line =~ /memtot/;
+$line =~ s/^\s//;
+$line =~ s/://g;
+$line =~ s/%//g;
+$line =~ s/M//g;
+$line =~ s/\(\d-\d\)//g;
+next if $line =~ /^\d\d\d\d\d\d\s+$/;
+print MEMSWA $line;
+}}
+#nete
+sub nete {
+open NETE,"<data/nete.data";
+my @nete0=<NETE>;
+while (@nete0) {
+my $line=shift @nete0;
+next if $line =~ /Linux/;
+next if $line =~ /if/;
+$line =~ s/^\s//;
+$line =~ s/://g;
+$line =~ s/%//g;
+$line =~ s/\(\d-\d\)//g;
+next if $line =~ /^\d\d\d\d\d\d\s+$/;
+chomp (my $target=substr ("$line",67,4));
+
+if ($target =~ /^\w/) {
+$target="neterror_".$target.".run";
+$target=~s/\s+//;
+open $target ,">>$target";
+print $target "$line";
+close $target;
+}}
+close NETE;
+system "mv *.run run/ 2> /dev/null";
+}
+#netg
+
+sub netg {
+open NETG,"<data/netg.data";
+my @netg0=<NETG>;
+while (@netg0) {
+my $line=shift @netg0;
+next if $line =~ /Linux/;
+next if $line =~ /inpc/;
+$line =~ s/^\s//;
+$line =~ s/://g;
+$line =~ s/%//g;
+$line =~ s/\(\d-\d\)//g;
+
+
+next if $line =~ /^\d\d\d\d\d\d\s+$/;
+chomp (my $target=substr ("$line",67,4));
+if ($target =~ /^\w/) {
+$target="netgeneral_".$target.".run";
+$target=~s/\s+//;
+open $target ,">>$target";
+
+print $target "$line";
+}}
+close $target;
+system "mv *.run run/ 2> /dev/null";
+}
+#nfsrpc
+sub nfsrpc {
+open NFSRPCT,"<data/nfsrpc.data";
+open NFSRPC,">run/nfsrpc.run";
+my @NFSRPCT=<NFSRPCT>;
+while (@NFSRPCT) {
+my $line=shift @NFSRPCT;
+next if $line =~ /Linux/;
+next if $line =~ /gat/;
+$line =~ s/^\s//;
+$line =~ s/://g;
+$line =~ s/%//g;
+$line =~ s/F//g;
+$line =~ s/\(\d-\d\)//g;
+next if $line =~ /^\d\d\d\d\d\d\s+$/;
+print NFSRPC $line;
+}}
+#nfssg
+sub nfsg {
+open NFSGT,"<data/nfsg.data";
+open NFSG,">run/nfsg.run";
+my @NFSGT=<NFSGT>;
+while (@NFSGT) {
+my $line=shift @NFSGT;
+next if $line =~ /Linux/;
+next if $line =~ /clrp/;
+$line =~ s/^\s//;
+$line =~ s/://g;
+$line =~ s/%//g;
+$line =~ s/F//g;
+$line =~ s/\(\d-\d\)//g;
+next if $line =~ /^\d\d\d\d\d\d\s+$/;
+print NFSG $line;
+}}
+#nfserr
+sub nfserr {
+open NFSERRT,"<data/nfserr.data";
+open NFSERR,">run/nfserr.run";
+my @NFSERRT=<NFSERRT>;
+while (@NFSERRT) {
+my $line=shift @NFSERRT;
+next if $line =~ /Linux/;
+next if $line =~ /bad/;
+$line =~ s/^\s//;
+$line =~ s/://g;
+$line =~ s/%//g;
+$line =~ s/F//g;
+$line =~ s/\(\d-\d\)//g;
+next if $line =~ /^\d\d\d\d\d\d\s+$/;
+print NFSERR $line;
+}}
+
+
+
+
+sub icmppt {
+open ICMPPTT,"<data/icmppt.data";
+open ICMPPT,">run/icmppt.run";
+my @icmpptt=<ICMPPTT>;
+while (@icmpptt) {
+my $line=shift @icmpptt;
+next if $line =~ /Linux/;
+next if $line =~ /ierr/;
+$line =~ s/^\s//;
+$line =~ s/://g;
+$line =~ s/%//g;
+$line =~ s/\(\d-\d\)//g;
+next if $line =~ /^\d\d\d\d\d\d\s+$/;
+print ICMPPT $line;
+}}
+#nfsserv
+sub nfsserv {
+open NFSSERVT,"<data/nfsserv.data";
+open NFSSERV,">run/nfsserv.run";
+my @NFSSERVT=<NFSSERVT>;
+while (@NFSSERVT) {
+my $line=shift @NFSSERVT;
+next if $line =~ /Linux/;
+next if $line =~ /rchit/;
+$line =~ s/^\s//;
+$line =~ s/://g;
+$line =~ s/%//g;
+$line =~ s/F//g;
+$line =~ s/\(\d-\d\)//g;
+next if $line =~ /^\d\d\d\d\d\d\s+$/;
+print NFSSERV $line;
+}}
+#proc
+sub proc {
+open PROCT,"<data/proc.data";
+open PROC,">run/proc.run";
+my @PROCT=<PROCT>;
+while (@PROCT) {
+my $line=shift @PROCT;
+next if $line =~ /Linux/;
+next if $line =~ /lavg/;
+$line =~ s/^\s//;
+$line =~ s/://g;
+$line =~ s/%//g;
+$line =~ s/\(\d-\d\)//g;
+next if $line =~ /^\d\d\d\d\d\d\s+$/;
+print PROC $line;
+}}
+#tcpe
+sub tcpe {
+open TCPET,"<data/tcpe.data";
+open TCPE,">run/tcpe.run";
+my @TCPET=<TCPET>;
+while (@TCPET) {
+my $line=shift @TCPET;
+next if $line =~ /Linux/;
+next if $line =~ /iner/;
+$line =~ s/^\s//;
+$line =~ s/://g;
+$line =~ s/%//g;
+$line =~ s/\(\d-\d\)//g;
+next if $line =~ /^\d\d\d\d\d\d\s+$/;
+print TCPE $line;
+}}
+#tcpg
+sub tcpg {
+open TCPGT,"<data/tcpg.data";
+open TCPG,">run/tcpg.run";
+my @TCPGT=<TCPGT>;
+while (@TCPGT) {
+my $line=shift @TCPGT;
+next if $line =~ /Linux/;
+next if $line =~ /tcp/;
+$line =~ s/^\s//;
+$line =~ s/://g;
+$line =~ s/%//g;
+$line =~ s/\(\d-\d\)//g;
+next if $line =~ /^\d\d\d\d\d\d\s+$/;
+print TCPG $line;
+}}
+#tty
+sub tty {
+open TTYT,"<data/tty.data";
+open TTY,">run/tty.run";
+my @TTYT=<TTYT>;
+while (@TTYT) {
+my $line=shift @TTYT;
+next if $line =~ /Linux/;
+next if $line =~ /xmit/;
+$line =~ s/^\s//;
+$line =~ s/://g;
+$line =~ s/%//g;
+$line =~ s/M//g;
+$line =~ s/f//g;
+$line =~ s/F//g;
+$line =~ s/\(\d-\d\)//g;
+next if $line =~ /^\d\d\d\d\d\d\s+$/;
+print TTY $line;
+}}
+#udp
+sub udp {
+open UDPT,"<data/udp.data";
+open UDP,">run/udp.run";
+my @UDPT=<UDPT>;
+while (@UDPT) {
+my $line=shift @UDPT;
+next if $line =~ /Linux/;
+next if $line =~ /ind/;
+$line =~ s/^\s//;
+$line =~ s/://g;
+$line =~ s/%//g;
+$line =~ s/M//g;
+$line =~ s/\(\d-\d\)//g;
+next if $line =~ /^\d\d\d\d\d\d\s+$/;
+print UDP $line;
+
+}}
+

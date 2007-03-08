@@ -1,0 +1,46 @@
+SarPplot 
+System Statistics Ploter 
+
+its simple application which takes output of atsar application and put it 
+into Gnuplot config files , kind of useful on server boxes for performance
+analyze .
+
+the output is Png , and SarPplot provide analyze for :
+
+cpu (Separated for cpu + total )
+process load
+disk (plot per disk)
+disk-partition (plot per partition)
+memory & swap
+paging & swapping
+interrupts
+kernel-resources
+tty activity
+net-interf (general) (plot for each nic)
+net-interf (errors) (plot for each nic)
+ip   v4    (general)
+ip   v4    (errors)
+tcp  v4    (general)
+tcp  v4    (errors)
+udp  v4
+icmp v4    (general)
+icmp v4    (per type)
+nfs        (general)
+nfs        (errors)
+nfs        (server)
+nfs-rpc    (%calls)
+
+
+syntax is Simple :
+./sarpplot <interval> <sample number>
+
+Example :
+./sarpplot 1 10
+takes 10 sample each second .
+
+
+Author :
+Armin ranjbar <zoup@zoup.org>
+
+Homepage :
+sarplot.berlios.de

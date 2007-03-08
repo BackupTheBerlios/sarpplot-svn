@@ -1,0 +1,56 @@
+#!/bin/bash
+if [ ! $1 ];then
+echo "Missing Argument"
+echo "sapplot <interval> <sample number>"
+exit 1
+fi
+
+if [ ! $2 ];then
+echo "Missing Argument"
+echo "sapplot <interval> <sample number>"
+exit 1
+fi
+
+
+if [ ! -e /usr/bin/atsar ];then
+echo "atsar Required"
+exit 1
+fi
+
+if [ ! -e /usr/bin/gnuplot ];then
+echo "gnuplot Required"
+exit 1
+fi
+
+
+
+echo "Starting `date`"
+atsar -Su $1 $2 > data/cpu.data &
+atsar -SP $1 $2 > data/proc.data &
+atsar -Sd $1 $2 > data/disk.data &
+atsar -SD $1 $2 > data/diskpart.data &
+atsar -Sr $1 $2 > data/memswa.data &
+atsar -Sp $1 $2 > data/mempage.data &
+atsar -SI $1 $2 > data/interr.data &
+atsar -Sv $1 $2 > data/keres.data &
+atsar -Sy $1 $2 > data/tty.data &
+atsar -Sl $1 $2 > data/netg.data &
+atsar -SL $1 $2 > data/nete.data &
+atsar -Sw $1 $2 > data/ipg.data &
+atsar -SW $1 $2 > data/ipe.data &
+atsar -St $1 $2 > data/tcpg.data &
+atsar -ST $1 $2 > data/tcpe.data &
+atsar -SU $1 $2 > data/udp.data &
+atsar -Sm $1 $2 > data/icmpg.data &
+atsar -SM $1 $2 > data/icmppt.data &
+atsar -SN $1 $2 > data/nfsg.data &
+atsar -SE $1 $2 > data/nfserr.data &
+atsar -SV $1 $2 > data/nfsserv.data &
+atsar -SR $1 $2 > data/nfsrpc.data &
+bin/httpdpid $1 $2 > run/httpdpid.run & 
+bin/httprequest $1 $2 > run/httpdrequest.run & 
+
+sleep $2;
+echo "Gathering is done.";
+
+perl main

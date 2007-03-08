@@ -1,0 +1,8 @@
+#!/bin/bash
+rm *~*
+rm "#~"
+rm conf/*
+rm data/*
+rm images/*
+rm run/*
+rm index.html
